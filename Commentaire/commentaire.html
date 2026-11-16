@@ -1,103 +1,100 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
-    <title>Mon site</title>
-    <link rel="stylesheet" href="commentaire.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
-
 <body>
+    <div>
+        <div>
+            <div class="review-list" id="reviewList">
 
-    <div class="anime">
+                        <article class="review-card">
 
-        <div class="anime-left">
+                            <div class="review-top">
+                                <strong>MangaFan</strong>
+                                <span>★ 10/10</span>
+                            </div>
 
-            <img src="image-anime.jpg" alt="Affiche de l'animé">
+                            <p>
+                                Une animation magnifique J'ai adoré !
+                            </p>
 
-            <div class="anime-details">
+                        </article>
 
-                <h2>Détails de l'animé</h2>
 
-                <p><strong>Nom :</strong> Naruto</p>
+                        <article class="review-card">
 
-                <p><strong>Genre :</strong> Action, aventure</p>
+                            <div class="review-top">
+                                <strong>Yuki</strong>
+                                <span>★ 9/10</span>
+                            </div>
 
-                <p><strong>Année :</strong> 2002</p>
+                            <p>
+                                Les personnages sont attachants
+                        
+                            </p>
 
-                <p><strong>Résumé :</strong> Un jeune ninja rêve de devenir Hokage.</p>
+                        </article>
+
+
+                        <article class="review-card">
+            
+                            <div class="review-top">
+                                <strong>Luna</strong>
+                                <span>★ 8/10</span>
+                            </div>
+
+                            <p>
+                                Une très belle série
+                                
+                            </p>
+
+                        </article>
+
+                    </div>
+
+                </div>
 
             </div>
+    <main>
+        </section>
 
-        </div>
+    </main>
 
-        <div class="review-list">
 
-            <h2>Commentaires</h2>
-
-            <article class="review-card">
-
-                <div class="review-top">
-                    <strong>MangaFan</strong>
-                    <span>★ 10/10</span>
-                </div>
-
-                <p>Une animation magnifique, j'ai adoré !</p>
-
-            </article>
-
-            <article class="review-card">
-
-                <div class="review-top">
-                    <strong>Yuki</strong>
-                    <span>★ 9/10</span>
-                </div>
-
-                <p>Les personnages sont attachants.</p>
-
-            </article>
-
-            <article class="review-card">
-
-                <div class="review-top">
-                    <strong>Luna</strong>
-                    <span>★ 8/10</span>
-                </div>
-
-                <p>Une très belle série.</p>
-
-            </article>
-
-        </div>
-
-    </div>
-
+    <!-- PIED DE PAGE -->
     <footer class="site-footer">
 
-        <a href="#" class="brand">AMA.</a>
+        <a class="brand footer-brand"
+           href="#"
+           data-page-link="accueil">
+            AMA<span>.</span>
+        </a>
 
         <p>
             Un univers d'animés à explorer,
             une communauté à partager.
         </p>
 
+        
+
     </footer>
 
-    <button id="backTop">↑</button>
+
+    <!-- BOUTON RETOUR EN HAUT -->
+    <button class="back-top" id="backTop" aria-label="Retour en haut">
+        ↑
+    </button>
+
+
+    <noscript data-class='loading' data-src="script.js"></noscript>
 
 </body>
-
 </html>
-.anime {
-    display: flex;
-    gap: 30px;
-    align-items: flex-start;
-}
-
-.anime-left {
-    width: 40%;
-}
-
-.review-list {
-    width: 60%;
-}
+<head>
+     <meta charset="UTF-8">
+     <title>Mon site</title>
+     <link rel="stylesheet" href="commentaire.css">
+</head>  
