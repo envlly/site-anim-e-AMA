@@ -856,18 +856,4 @@ button {
         opacity: 1;
     }
 }
-.anime {
-    display: flex;
-    gap: 30px;
-    align-items: flex-start;
-}
-
-.anime-left {
-    width: 40%;
-}
-
-.review-list {
-    width: 60%;
-}
-
 
