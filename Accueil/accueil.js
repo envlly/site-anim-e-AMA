@@ -329,3 +329,5 @@ document.getElementById("closeCatalog").addEventListener("click", () => {
 
 });
 
+render();
+
