@@ -225,3 +225,107 @@ function cardTemplate(anime) {
     `;
 
 }
+
+function render(list = animes) {
+
+    grid.innerHTML = list.map(cardTemplate).join("");
+
+    filmsGrid.innerHTML = animes
+        .filter(a => a.type === "Film")
+        .map(cardTemplate)
+        .join("");
+
+    seriesGrid.innerHTML = animes
+        .filter(a => a.type === "Série")
+        .map(cardTemplate)
+        .join("");
+
+
+    document.getElementById("emptyState").hidden =
+        list.length !== 0;
+
+
+    document.getElementById("resultCount").textContent =
+        `${list.length} animé${list.length > 1 ? "s" : ""} dans la sélection`;
+
+}
+
+
+function showPage(page) {
+
+    currentPage = page;
+
+    document.querySelectorAll(".page-section").forEach(section => {
+
+        section.classList.remove("active");
+
+    });
+
+
+    const target = document.getElementById(`page-${page}`);
+
+    if (target) {
+
+        target.classList.add("active");
+
+    }
+
+
+    document.querySelectorAll("[data-page-link]").forEach(button => {
+
+        button.classList.toggle(
+            "active",
+            button.dataset.pageLink === page
+        );
+
+    });
+
+
+    catalogPanel.hidden = true;
+
+    document.getElementById("catalogToggle")
+        .setAttribute("aria-expanded", "false");
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+// NAVIGATION ENTRE LES PAGES
+
+document.querySelectorAll("[data-page-link]").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        showPage(button.dataset.pageLink);
+
+    });
+
+});
+
+
+// OUVRIR ET FERMER LE CATALOGUE
+
+document.getElementById("catalogToggle").addEventListener("click", () => {
+
+    catalogPanel.hidden = !catalogPanel.hidden;
+
+    document.getElementById("catalogToggle")
+        .setAttribute("aria-expanded", String(!catalogPanel.hidden));
+
+});
+
+
+document.getElementById("closeCatalog").addEventListener("click", () => {
+
+    catalogPanel.hidden = true;
+
+    document.getElementById("catalogToggle")
+        .setAttribute("aria-expanded", "false");
+
+});
+
