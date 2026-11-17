@@ -48,7 +48,7 @@ button {
 }
 
 
-/* BARRE DE NAVIGATION */
+
 
 .site-header {
     min-height: 86px;
@@ -70,7 +70,7 @@ button {
 }
 
 
-/* LOGO AMA */
+
 
 .brand {
     color: var(--pink);
@@ -86,7 +86,7 @@ button {
 }
 
 
-/* MENU */
+
 
 .main-nav {
     display: flex;
@@ -116,7 +116,7 @@ button {
 }
 
 
-/* RECHERCHE ET BOUTON PLUS */
+
 
 .header-tools {
     display: flex;
@@ -184,7 +184,7 @@ button {
 }
 
 
-/* TITRE DE LA PAGE */
+
 
 .intro {
     text-align: center;
@@ -215,7 +215,7 @@ button {
 }
 
 
-/* PHRASE QUI DÉFILE */
+
 
 .marquee {
     max-width: 640px;
@@ -254,7 +254,6 @@ button {
 }
 
 
-/* CATALOGUE */
 
 .catalog-panel {
     width: min(950px, calc(100% - 40px));
@@ -300,7 +299,6 @@ button {
 }
 
 
-/* FILTRES */
 
 .filter-grid {
     display: grid;
@@ -340,7 +338,6 @@ select,
 }
 
 
-/* BOUTONS */
 
 .button {
     border: 0;
@@ -371,7 +368,7 @@ select,
 }
 
 
-/* GRANDE VITRINE */
+
 
 .hero {
     width: min(1320px, calc(100% - 48px));
@@ -503,7 +500,7 @@ select,
 }
 
 
-/* SECTION ANIMES */
+
 
 .content-section,
 .genre-strip,
@@ -537,7 +534,7 @@ select,
 }
 
 
-/* GRILLE DES AFFICHES */
+
 
 .anime-grid {
     display: grid;
@@ -886,7 +883,7 @@ select,
 }
 
 
-/* PIED DE PAGE */
+
 
 .site-footer {
     border-top: 1px solid var(--line);
@@ -911,7 +908,7 @@ select,
 }
 
 
-/* BOUTON RETOUR EN HAUT */
+
 
 .back-top {
     position: fixed;
