@@ -1,5 +1,7 @@
 /* IMPORTATION DES POLICES */
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+
+
 /* COULEURS */
 :root {
     --cream: #FFF7F0;
@@ -38,6 +40,20 @@ textarea {
 
 button {
     cursor: pointer;
+}
+/* LOGO AMA */
+
+.brand {
+    color: var(--pink);
+    font-weight: 900;
+    letter-spacing: -4px;
+    font-size: 43px;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.brand span {
+    color: var(--purple);
 }
 
 /* HEADER */
