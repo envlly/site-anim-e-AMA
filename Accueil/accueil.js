@@ -292,6 +292,15 @@ function showPage(page) {
         behavior: "smooth"
     });
 
+    const hashes = {
+        accueil: "accueil",
+        films: "pages-films",
+        series: "pages-series",
+        avis: "pages-avis"
+    };
+
+    history.replaceState(null, "", `#${hashes[page] || "accueil"}`);
+
 }
 
 
@@ -329,5 +338,62 @@ document.getElementById("closeCatalog").addEventListener("click", () => {
 
 });
 
+const reviewForm = document.getElementById("reviewForm");
+const reviewList = document.getElementById("reviewList");
+const reviewCount = document.querySelector(".review-count");
+
+if (reviewForm) {
+    reviewForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById("reviewName").value.trim();
+        const rating = document.getElementById("reviewRating").value;
+        const comment = document.getElementById("reviewText").value.trim();
+
+        if (!name || !comment) return;
+
+        const article = document.createElement("article");
+        article.className = "review-card";
+
+        const top = document.createElement("div");
+        top.className = "review-top";
+
+        const author = document.createElement("strong");
+        author.textContent = name;
+
+        const score = document.createElement("span");
+        score.textContent = `★ ${rating}/10`;
+
+        const body = document.createElement("p");
+        body.textContent = comment;
+
+        top.append(author, score);
+        article.append(top, body);
+        reviewList.prepend(article);
+        reviewForm.reset();
+
+        const count = reviewList.querySelectorAll(".review-card").length;
+        reviewCount.textContent = `${count} avis`;
+    });
+}
+
+function openPageFromHash() {
+    const hash = window.location.hash;
+
+    if (hash === "#pages-films" || hash === "#page-films") {
+        showPage("films");
+    } else if (hash === "#pages-series" || hash === "#page-series") {
+        showPage("series");
+    } else if (hash === "#pages-avis" || hash === "#page-avis") {
+        showPage("avis");
+    } else {
+        showPage("accueil");
+    }
+}
+
+window.addEventListener("hashchange", openPageFromHash);
+
 render();
+
+openPageFromHash();
 
