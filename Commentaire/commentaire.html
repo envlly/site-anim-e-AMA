@@ -1,171 +1,159 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Partagez vos avis et découvrez ceux de la communauté AMA.">
-
-    <title>AMA - Avis</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <title>Document</title>
+    </head>
     <link rel="stylesheet" href="commentaire.css">
-    <script src="../commentaire.js" defer></script>
+    <script src="commentaire.js"></script>
 </head>
-
 <body>
-    <main>
-        <section class="page-section active" id="page-avis">
-            <div class="page-title">
-                <p class="eyebrow">
-                    LA COMMUNAUTÉ AMA
-                </p>
 
-                <h2>Les avis <span>✦</span></h2>
+    
+    <header class="site-header">
 
-                <p>
-                    Lis les impressions des autres fans
-                    et partage la tienne.
-                </p>
-            </div>
+        <a class="brand" href="#" data-page-link="accueil">
+            AMA<span>.</span>
+        </a>
 
-            <div class="review-layout">
-                <article class="review-feature">
-                    <a href="https://www.youtube.com/embed/6vMuWuWlW4I?autoplay=1"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       title="Lire la bande-annonce de Demon Slayer">
-                        <img
-                            src="https://cdn.myanimelist.net/images/anime/1171/109222.jpg"
-                            alt="Affiche de Demon Slayer"
-                        >
-                    </a>
+        <nav class="main-nav">
 
-                    <div class="review-feature-info">
-                        <span class="pill">
-                            ANIME À L'AFFICHE
-                        </span>
+            <button class="nav-link active" data-page-link="accueil">
+                ACCUEIL
+            </button>
 
-                        <h3>Demon Slayer</h3>
+            <button class="nav-link" data-page-link="films">
+                FILMS
+            </button>
 
-                        <p>
-                            Série · Action, Fantastique · 2019
-                        </p>
+            <button class="nav-link" data-page-link="series">
+                SÉRIES
+            </button>
 
-                        <div class="big-rating">
-                            ★ 9,2 <small>/ 10</small>
-                        </div>
-                    </div>
-                </article>
+            <a class="nav-link active" href="commentaire.html">
+                AVIS
+            </a>
 
-                <div class="reviews-column">
-                    <div class="reviews-heading">
-                        <div>
-                            <p class="eyebrow">
-                                CE QU'EN PENSE LA COMMUNAUTÉ
-                            </p>
+        </nav>
 
-                            <h3>Avis des utilisateurs</h3>
-                        </div>
+        
+        <div class="header-tools">
 
-                        <span class="review-count">
-                            3 avis
-                        </span>
-                    </div>
+            <label class="search-box">
+                <span>⌕</span>
 
-                    <form class="review-form" id="reviewForm">
-                        <label for="reviewName">
-                            Ton pseudo
-                        </label>
+                <input
+                    id="searchInput"
+                    type="search"
+                    placeholder="Rechercher un animé..."
+                    autocomplete="off"
+                >
+            </label>
 
-                        <input
-                            id="reviewName"
-                            maxlength="24"
-                            placeholder="Ex. AnimeFan"
-                            required
-                        >
+            <button
+                class="plus-button"
+                id="catalogToggle"
+                aria-label="Ouvrir le catalogue"
+                aria-expanded="false"
+            >
+                +
+            </button>
 
-                        <label for="reviewRating">
-                            Ta note sur 10
-                        </label>
+        </div>
 
-                        <select id="reviewRating">
-                            <option value="10">10 / 10</option>
-                            <option value="9" selected>9 / 10</option>
-                            <option value="8">8 / 10</option>
-                            <option value="7">7 / 10</option>
-                            <option value="6">6 / 10</option>
-                            <option value="5">5 / 10</option>
-                            <option value="4">4 / 10</option>
-                            <option value="3">3 / 10</option>
-                            <option value="2">2 / 10</option>
-                            <option value="1">1 / 10</option>
-                        </select>
+    </header>
 
-                        <label for="reviewText">
-                            Ton commentaire
-                        </label>
+</head>
+<body>
+    <div>
+        <div>
+            <div class="review-list" id="reviewList">
 
-                        <textarea
-                            id="reviewText"
-                            rows="3"
-                            maxlength="400"
-                            placeholder="Qu'as-tu pensé de cet animé ?"
-                            required
-                        ></textarea>
-
-                        <button class="button button-primary" type="submit">
-                            Publier mon avis ↗
-                        </button>
-                    </form>
-
-                    <div class="review-list" id="reviewList">
                         <article class="review-card">
+
                             <div class="review-top">
                                 <strong>MangaFan</strong>
                                 <span>★ 10/10</span>
                             </div>
 
                             <p>
-                                Une animation magnifique et une
-                                histoire très touchante. J'ai adoré !
+                                Une animation magnifique J'ai adoré !
                             </p>
+
                         </article>
 
+
                         <article class="review-card">
+
                             <div class="review-top">
-                                <strong>Yuki_07</strong>
+                                <strong>Yuki</strong>
                                 <span>★ 9/10</span>
                             </div>
 
                             <p>
                                 Les personnages sont attachants
-                                et les combats impressionnants.
+                        
                             </p>
+
                         </article>
 
+
                         <article class="review-card">
+            
                             <div class="review-top">
-                                <strong>OtakuLuna</strong>
+                                <strong>Luna</strong>
                                 <span>★ 8/10</span>
                             </div>
 
                             <p>
-                                Une très belle série,
-                                avec beaucoup d'émotion.
+                                Une très belle série
+                                
                             </p>
+
                         </article>
+
                     </div>
+
                 </div>
+
             </div>
+    <main>
         </section>
+
     </main>
+
+
+    
+    <footer class="site-footer">
+
+        <a class="brand footer-brand"
+           href="#"
+           data-page-link="accueil">
+            AMA<span>.</span>
+        </a>
+
+        <p>
+            Un univers d'animés à explorer,
+            une communauté à partager.
+        </p>
+
+        
+
+    </footer>
+
 
     <button class="back-top" id="backTop" aria-label="Retour en haut">
         ↑
     </button>
-</body>
 
+
+    <noscript data-class='loading' data-src="script.js"></noscript>
+
+</body>
 </html>
+<head>
+     <meta charset="UTF-8">
+     <title>Mon site</title>
+     <link rel="stylesheet" href="commentaire.css">
+</head>

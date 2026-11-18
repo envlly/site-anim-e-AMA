@@ -863,32 +863,6 @@ button {
     }
 }
 
-.page-section.active {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 55px 6%;
-}
-
-.review-feature a {
-    display: block;
-}
-
-.review-feature a img {
-    display: block;
-    width: 100%;
-    max-height: 300px;
-    object-fit: cover;
-}
-
-.review-form select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    outline: none;
-    background: var(--cream);
-    color: var(--ink);
-}
 
 .site-header {
     display: flex;
