@@ -290,14 +290,11 @@ function chooseSuggestion(anime) {
     searchInput.value = anime.title;
     genreFilter.value = "all";
     languageFilter.value = "all";
-    typeFilter.value = "all";
+    typeFilter.value = anime.type;
     closeSuggestions();
 
     const targetPage = anime.type === "Film" ? "films" : "series";
-    if (currentPage !== "accueil") {
-        showPage(targetPage);
-    }
-
+    showPage(targetPage);
     render();
 }
 
@@ -429,6 +426,11 @@ document.querySelectorAll("[data-page-link]").forEach(button => {
 
     button.addEventListener("click", () => {
 
+        searchInput.value = "";
+        genreFilter.value = "all";
+        languageFilter.value = "all";
+        typeFilter.value = "all";
+        render();
         showPage(button.dataset.pageLink);
 
     });
