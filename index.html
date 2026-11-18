@@ -2,15 +2,19 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AMA — découvre tes animés préférés, films, séries et avis.">
+    <title>AMA — Univers Anime</title>
+
+    <!-- 2. Chargement du CSS -->
+    <!-- Attention : si index.html est à la racine, le chemin doit inclure le dossier Accueil/ -->
+    <link rel="stylesheet" href="Accueil/accueil.css">
+
+    <!-- 3. Redirection (Meta + JS) -->
     <meta http-equiv="refresh" content="0; url=Accueil/accueil.html">
-    <title>Redirection...</title>
-    <script>
-        // Fallback JavaScript pour les navigateurs qui ignorent le meta refresh
-        window.location.href = "Accueil/accueil.html";
-    </script>
+    <script>window.location.replace("Accueil/accueil.html");</script>
 </head>
 <body>
-    <p>Redirection en cours... Si vous n'êtes pas redirigé automatiquement, 
-       <a href="Accueil/accueil.html">cliquez ici</a>.</p>
+    <p>Redirection en cours... <a href="Accueil/accueil.html">Cliquez ici</a> si rien ne se passe.</p>
 </body>
 </html>
