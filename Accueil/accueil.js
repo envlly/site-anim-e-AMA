@@ -155,6 +155,7 @@ const filmsGrid = document.getElementById("filmsGrid");
 const seriesGrid = document.getElementById("seriesGrid");
 
 const searchInput = document.getElementById("searchInput");
+const searchSuggestions = document.getElementById("searchSuggestions");
 
 const catalogPanel = document.getElementById("catalogPanel");
 const genreFilter = document.getElementById("genreFilter");
@@ -164,6 +165,8 @@ const typeFilter = document.getElementById("typeFilter");
 let currentPage = "accueil";
 
 let activeGenre = "all";
+let visibleSuggestions = [];
+let activeSuggestionIndex = -1;
 
 
 // CRÉATION D'UNE CARTE ANIME
@@ -276,9 +279,99 @@ function render() {
         `${filteredAnimes.length} animé${filteredAnimes.length > 1 ? "s" : ""} dans la sélection`;
 }
 
+function closeSuggestions() {
+    searchSuggestions.hidden = true;
+    searchInput.setAttribute("aria-expanded", "false");
+    searchInput.removeAttribute("aria-activedescendant");
+    activeSuggestionIndex = -1;
+}
+
+function chooseSuggestion(anime) {
+    searchInput.value = anime.title;
+    genreFilter.value = "all";
+    languageFilter.value = "all";
+    typeFilter.value = "all";
+    closeSuggestions();
+
+    const targetPage = anime.type === "Film" ? "films" : "series";
+    if (currentPage !== "accueil") {
+        showPage(targetPage);
+    }
+
+    render();
+}
+
+function updateSuggestions() {
+    const query = normalizeSearchText(searchInput.value);
+    searchSuggestions.replaceChildren();
+    visibleSuggestions = [];
+    activeSuggestionIndex = -1;
+
+    if (!query) {
+        closeSuggestions();
+        return;
+    }
+
+    visibleSuggestions = animes
+        .filter(anime => normalizeSearchText(anime.title).includes(query))
+        .sort((a, b) => {
+            const aStartsWithQuery = normalizeSearchText(a.title).startsWith(query);
+            const bStartsWithQuery = normalizeSearchText(b.title).startsWith(query);
+            return Number(bStartsWithQuery) - Number(aStartsWithQuery);
+        })
+        .slice(0, 6);
+
+    if (visibleSuggestions.length === 0) {
+        closeSuggestions();
+        return;
+    }
+
+    visibleSuggestions.forEach((anime, index) => {
+        const option = document.createElement("button");
+        option.type = "button";
+        option.id = `searchSuggestion-${index}`;
+        option.className = "search-suggestion";
+        option.setAttribute("role", "option");
+        option.setAttribute("aria-selected", "false");
+
+        const title = document.createElement("span");
+        title.className = "search-suggestion-title";
+        title.textContent = anime.title;
+
+        const meta = document.createElement("span");
+        meta.className = "search-suggestion-meta";
+        meta.textContent = `${anime.type} · ${anime.genre} · ${anime.year}`;
+
+        option.append(title, meta);
+        option.addEventListener("mousedown", event => event.preventDefault());
+        option.addEventListener("click", () => chooseSuggestion(anime));
+        searchSuggestions.append(option);
+    });
+
+    searchSuggestions.hidden = false;
+    searchInput.setAttribute("aria-expanded", "true");
+}
+
+function setActiveSuggestion(index) {
+    const options = searchSuggestions.querySelectorAll('[role="option"]');
+    if (options.length === 0) return;
+
+    activeSuggestionIndex = (index + options.length) % options.length;
+
+    options.forEach((option, optionIndex) => {
+        const isActive = optionIndex === activeSuggestionIndex;
+        option.setAttribute("aria-selected", String(isActive));
+        if (isActive) {
+            searchInput.setAttribute("aria-activedescendant", option.id);
+            option.scrollIntoView({ block: "nearest" });
+        }
+    });
+}
+
 
 function showPage(page) {
 
+    closeSuggestions();
     currentPage = page;
 
     document.querySelectorAll(".page-section").forEach(section => {
@@ -370,6 +463,37 @@ searchInput.addEventListener("input", () => {
     }
 
     render();
+    updateSuggestions();
+});
+
+searchInput.addEventListener("focus", updateSuggestions);
+
+searchInput.addEventListener("keydown", event => {
+    if (event.key === "ArrowDown" && !searchSuggestions.hidden) {
+        event.preventDefault();
+        setActiveSuggestion(activeSuggestionIndex + 1);
+    } else if (event.key === "ArrowUp" && !searchSuggestions.hidden) {
+        event.preventDefault();
+        setActiveSuggestion(
+            activeSuggestionIndex < 0
+                ? visibleSuggestions.length - 1
+                : activeSuggestionIndex - 1
+        );
+    } else if (event.key === "Enter" && !searchSuggestions.hidden) {
+        const selectedIndex = activeSuggestionIndex < 0 ? 0 : activeSuggestionIndex;
+        if (visibleSuggestions[selectedIndex]) {
+            event.preventDefault();
+            chooseSuggestion(visibleSuggestions[selectedIndex]);
+        }
+    } else if (event.key === "Escape") {
+        closeSuggestions();
+    }
+});
+
+document.addEventListener("click", event => {
+    if (!event.target.closest(".search-box")) {
+        closeSuggestions();
+    }
 });
 
 document.getElementById("applyFilters").addEventListener("click", () => {

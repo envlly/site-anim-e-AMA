@@ -57,7 +57,7 @@
         
         <div class="header-tools">
 
-            <label class="search-box">
+            <div class="search-box">
                 <span>⌕</span>
 
                 <input
@@ -65,8 +65,20 @@
                     type="search"
                     placeholder="Rechercher un animé..."
                     autocomplete="off"
+                    role="combobox"
+                    aria-autocomplete="list"
+                    aria-controls="searchSuggestions"
+                    aria-expanded="false"
                 >
-            </label>
+
+                <div
+                    class="search-suggestions"
+                    id="searchSuggestions"
+                    role="listbox"
+                    aria-label="Suggestions d'animés"
+                    hidden
+                ></div>
+            </div>
 
             <button
                 class="plus-button"
