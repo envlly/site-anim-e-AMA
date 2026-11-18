@@ -1,62 +1,49 @@
-event.preventDefault();
+const reviewForm = document.getElementById("reviewForm");
+const reviewList = document.getElementById("reviewList");
+const reviewCount = document.querySelector(".review-count");
+const backTop = document.getElementById("backTop");
 
+reviewForm.addEventListener("submit", (event) => {
+    event.preventDefault();
 
-const name = document.getElementById("reviewName").value.trim();
+    const name = document.getElementById("reviewName").value.trim();
+    const rating = document.getElementById("reviewRating").value;
+    const comment = document.getElementById("reviewText").value.trim();
 
-const rating = document.getElementById("reviewRating").value;
+    if (!name || !comment) return;
 
-const comment = document.getElementById("reviewText").value.trim();
+    const article = document.createElement("article");
+    article.className = "review-card";
 
+    const top = document.createElement("div");
+    top.className = "review-top";
 
-if (!name || !comment) return;
+    const author = document.createElement("strong");
+    author.textContent = name;
 
+    const score = document.createElement("span");
+    score.textContent = `★ ${rating}/10`;
 
-// CRÉER LE COMMENTAIRE
+    const body = document.createElement("p");
+    body.textContent = comment;
 
-const article = document.createElement("article");
+    top.append(author, score);
+    article.append(top, body);
+    reviewList.prepend(article);
 
-article.className = "review-card";
+    reviewForm.reset();
 
+    const count = document.querySelectorAll(".review-card").length;
+    reviewCount.textContent = `${count} avis`;
+});
 
-const top = document.createElement("div");
+window.addEventListener("scroll", () => {
+    backTop.classList.toggle("visible", window.scrollY > 300);
+});
 
-top.className = "review-top";
-
-
-const author = document.createElement("strong");
-
-author.textContent = name;
-
-
-const score = document.createElement("span");
-
-score.textContent = `★ ${rating}/10`;
-
-
-const body = document.createElement("p");
-
-body.textContent = comment;
-
-
-top.append(author, score);
-
-article.append(top, body);
-
-
-// AJOUTER LE COMMENTAIRE EN PREMIER
-
-document.getElementById("reviewList").prepend(article);
-
-
-// VIDER LE FORMULAIRE
-
-document.getElementById("reviewForm").reset();
-
-
-// METTRE À JOUR LE NOMBRE D'AVIS
-
-const count = document.querySelectorAll(".review-card").length;
-
-document.querySelector(".review-count").textContent =
-    `${count} avis`;
-render();
+backTop.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
