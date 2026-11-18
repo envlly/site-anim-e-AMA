@@ -287,14 +287,13 @@ function closeSuggestions() {
 }
 
 function chooseSuggestion(anime) {
+    const targetPage = anime.type === "Film" ? "films" : "series";
+    showPage(targetPage);
+
     searchInput.value = anime.title;
     genreFilter.value = "all";
     languageFilter.value = "all";
     typeFilter.value = anime.type;
-    closeSuggestions();
-
-    const targetPage = anime.type === "Film" ? "films" : "series";
-    showPage(targetPage);
     render();
 }
 
@@ -369,6 +368,14 @@ function setActiveSuggestion(index) {
 function showPage(page) {
 
     closeSuggestions();
+
+    if (page === "films" || page === "series") {
+        searchInput.value = "";
+        genreFilter.value = "all";
+        languageFilter.value = "all";
+        typeFilter.value = "all";
+    }
+
     currentPage = page;
 
     document.querySelectorAll(".page-section").forEach(section => {
