@@ -2,10 +2,6 @@
     text-decoration: none;
 }
 
-.brand {
-    font-family: "Nunito", sans-serif;
-}
-
 .nav-link.active,
 .nav-link.active:hover,
 .nav-link.active:focus {
