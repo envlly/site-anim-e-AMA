@@ -157,6 +157,9 @@ const seriesGrid = document.getElementById("seriesGrid");
 const searchInput = document.getElementById("searchInput");
 
 const catalogPanel = document.getElementById("catalogPanel");
+const genreFilter = document.getElementById("genreFilter");
+const languageFilter = document.getElementById("languageFilter");
+const typeFilter = document.getElementById("typeFilter");
 
 let currentPage = "accueil";
 
@@ -226,28 +229,51 @@ function cardTemplate(anime) {
 
 }
 
-function render(list = animes) {
+function normalizeSearchText(value) {
+    return value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLocaleLowerCase("fr")
+        .trim();
+}
 
-    grid.innerHTML = list.map(cardTemplate).join("");
+function getFilteredAnimes() {
+    const query = normalizeSearchText(searchInput.value);
+    const selectedGenre = normalizeSearchText(genreFilter.value);
+    const selectedLanguage = normalizeSearchText(languageFilter.value);
+    const selectedType = normalizeSearchText(typeFilter.value);
 
-    filmsGrid.innerHTML = animes
-        .filter(a => a.type === "Film")
-        .map(cardTemplate)
-        .join("");
+    return animes.filter(anime => {
+        const searchableText = normalizeSearchText(
+            `${anime.title} ${anime.type} ${anime.genre} ${anime.language} ${anime.year} ${anime.rating}`
+        );
+        const matchesQuery = !query || searchableText.includes(query);
+        const matchesGenre = selectedGenre === "all" ||
+            normalizeSearchText(anime.genre).includes(selectedGenre);
+        const matchesLanguage = selectedLanguage === "all" ||
+            normalizeSearchText(anime.language) === selectedLanguage;
+        const matchesType = selectedType === "all" ||
+            normalizeSearchText(anime.type) === selectedType;
 
-    seriesGrid.innerHTML = animes
-        .filter(a => a.type === "Série")
-        .map(cardTemplate)
-        .join("");
+        return matchesQuery && matchesGenre && matchesLanguage && matchesType;
+    });
+}
 
+function render() {
+    const filteredAnimes = getFilteredAnimes();
+    const films = filteredAnimes.filter(anime => anime.type === "Film");
+    const series = filteredAnimes.filter(anime => anime.type === "Série");
 
-    document.getElementById("emptyState").hidden =
-        list.length !== 0;
+    grid.innerHTML = filteredAnimes.map(cardTemplate).join("");
+    filmsGrid.innerHTML = films.map(cardTemplate).join("");
+    seriesGrid.innerHTML = series.map(cardTemplate).join("");
 
+    document.getElementById("emptyState").hidden = filteredAnimes.length > 0;
+    document.getElementById("filmsEmptyState").hidden = films.length > 0;
+    document.getElementById("seriesEmptyState").hidden = series.length > 0;
 
     document.getElementById("resultCount").textContent =
-        `${list.length} animé${list.length > 1 ? "s" : ""} dans la sélection`;
-
+        `${filteredAnimes.length} animé${filteredAnimes.length > 1 ? "s" : ""} dans la sélection`;
 }
 
 
@@ -336,6 +362,42 @@ document.getElementById("closeCatalog").addEventListener("click", () => {
     document.getElementById("catalogToggle")
         .setAttribute("aria-expanded", "false");
 
+});
+
+searchInput.addEventListener("input", () => {
+    if (searchInput.value.trim() && currentPage === "avis") {
+        showPage("accueil");
+    }
+
+    render();
+});
+
+document.getElementById("applyFilters").addEventListener("click", () => {
+    render();
+});
+
+document.getElementById("resetFilters").addEventListener("click", () => {
+    searchInput.value = "";
+    genreFilter.value = "all";
+    languageFilter.value = "all";
+    typeFilter.value = "all";
+    render();
+});
+
+document.querySelectorAll(".genre-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+        genreFilter.value = chip.dataset.genre;
+        typeFilter.value = "all";
+        languageFilter.value = "all";
+        searchInput.value = "";
+
+        if (currentPage !== "accueil") {
+            showPage("accueil");
+        }
+
+        render();
+        document.getElementById("popular").scrollIntoView({ behavior: "smooth" });
+    });
 });
 
 const reviewForm = document.getElementById("reviewForm");
