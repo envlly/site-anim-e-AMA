@@ -3,157 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    </head>
-    <link rel="stylesheet" href="commentaire.css">
-    <script src="commentaire.js"></script>
+    <meta name="description" content="Participe aux commentaires de la communauté AMA.">
+    <title>AMA - Commentaires</title>
+    <link rel="stylesheet" href="avis.css">
+    <script src="commentaire.js" defer></script>
 </head>
+
 <body>
-
-    
     <header class="site-header">
+        <a class="brand" href="../Accueil/accueil.html">AMA<span>.</span></a>
 
-        <a class="brand" href="#" data-page-link="accueil">
-            AMA<span>.</span>
-        </a>
-
-        <nav class="main-nav">
-
-            <button class="nav-link active" data-page-link="accueil">
-                ACCUEIL
-            </button>
-
-            <button class="nav-link" data-page-link="films">
-                FILMS
-            </button>
-
-            <button class="nav-link" data-page-link="series">
-                SÉRIES
-            </button>
-
-            <a class="nav-link active" href="commentaire.html">
-                AVIS
-            </a>
-
+        <nav class="main-nav" aria-label="Navigation principale">
+            <a class="nav-link" href="../Accueil/accueil.html">ACCUEIL</a>
+            <a class="nav-link" href="../Accueil/accueil.html#page-films">FILMS</a>
+            <a class="nav-link" href="../Accueil/accueil.html#page-series">SÉRIES</a>
+            <a class="nav-link" href="avis.html">AVIS</a>
+            <a class="nav-link active" href="commentaire.html" aria-current="page">COMMENTAIRES</a>
         </nav>
-
-        
-        <div class="header-tools">
-
-            <label class="search-box">
-                <span>⌕</span>
-
-                <input
-                    id="searchInput"
-                    type="search"
-                    placeholder="Rechercher un animé..."
-                    autocomplete="off"
-                >
-            </label>
-
-            <button
-                class="plus-button"
-                id="catalogToggle"
-                aria-label="Ouvrir le catalogue"
-                aria-expanded="false"
-            >
-                +
-            </button>
-
-        </div>
-
     </header>
 
-</head>
-<body>
-    <div>
-        <div>
-            <div class="review-list" id="reviewList">
-
-                        <article class="review-card">
-
-                            <div class="review-top">
-                                <strong>MangaFan</strong>
-                                <span>★ 10/10</span>
-                            </div>
-
-                            <p>
-                                Une animation magnifique J'ai adoré !
-                            </p>
-
-                        </article>
-
-
-                        <article class="review-card">
-
-                            <div class="review-top">
-                                <strong>Yuki</strong>
-                                <span>★ 9/10</span>
-                            </div>
-
-                            <p>
-                                Les personnages sont attachants
-                        
-                            </p>
-
-                        </article>
-
-
-                        <article class="review-card">
-            
-                            <div class="review-top">
-                                <strong>Luna</strong>
-                                <span>★ 8/10</span>
-                            </div>
-
-                            <p>
-                                Une très belle série
-                                
-                            </p>
-
-                        </article>
-
-                    </div>
-
-                </div>
-
-            </div>
     <main>
+        <section class="page-avis">
+            <div class="page-title">
+                <p class="eyebrow">DISCUSSION COMMUNAUTAIRE</p>
+                <h2>Commentaires <span>✦</span></h2>
+                <p>Partage ton impression ou pose une question aux autres fans.</p>
+            </div>
+
+            <form class="review-form" id="commentForm">
+                <label for="commentName">Ton pseudo</label>
+                <input id="commentName" maxlength="24" placeholder="Ex. AnimeFan" required>
+
+                <label for="commentText">Ton commentaire</label>
+                <textarea
+                    id="commentText"
+                    rows="4"
+                    maxlength="400"
+                    placeholder="Écris ton commentaire..."
+                    required
+                ></textarea>
+
+                <button class="button button-primary" type="submit">Publier</button>
+            </form>
+
+            <div class="review-list" id="commentList">
+                <article class="review-card">
+                    <div class="review-top"><strong>MangaFan</strong></div>
+                    <p>J'aimerais connaître vos animés préférés de cette année.</p>
+                </article>
+
+                <article class="review-card">
+                    <div class="review-top"><strong>Yuki</strong></div>
+                    <p>Les personnages sont vraiment attachants.</p>
+                </article>
+            </div>
         </section>
-
     </main>
-
-
-    
-    <footer class="site-footer">
-
-        <a class="brand footer-brand"
-           href="#"
-           data-page-link="accueil">
-            AMA<span>.</span>
-        </a>
-
-        <p>
-            Un univers d'animés à explorer,
-            une communauté à partager.
-        </p>
-
-        
-
-    </footer>
-
-
-    <button class="back-top" id="backTop" aria-label="Retour en haut">
-        ↑
-    </button>
-
-
-    <noscript data-class='loading' data-src="script.js"></noscript>
-
 </body>
 </html>
-<head>
-     <meta charset="UTF-8">
-     <title>Mon site</title>
-     <link rel="stylesheet" href="commentaire.css">
-</head>
