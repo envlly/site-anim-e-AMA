@@ -754,7 +754,7 @@ select,
 
 
 .site-footer {
-    border-top: 1px solid var(--line);
+    border-top: 0;
 
     padding: 35px 24px;
 
