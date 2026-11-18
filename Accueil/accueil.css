@@ -115,6 +115,14 @@ button {
     color: var(--pink);
 }
 
+.nav-link.avis-menu-link,
+.nav-link.avis-menu-link:hover,
+.nav-link.avis-menu-link.active {
+    background: transparent;
+    color: var(--plum);
+    text-decoration: none;
+}
+
 
 
 

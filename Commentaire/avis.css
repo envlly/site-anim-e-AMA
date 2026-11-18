@@ -1,5 +1,10 @@
-@import url("../Accueil/accueil.css");
-
-.nav-link {
+.nav-link,
+.avis-menu-link {
     text-decoration: none;
+}
+
+.avis-menu-link:hover,
+.avis-menu-link.active {
+    background: transparent;
+    color: var(--plum);
 }
