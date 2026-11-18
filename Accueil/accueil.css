@@ -74,6 +74,7 @@ button {
 
 .brand {
     color: var(--pink);
+    font-family: "Nunito", sans-serif;
     font-weight: 900;
     letter-spacing: -4px;
     font-size: 43px;
@@ -115,13 +116,6 @@ button {
     color: var(--pink);
 }
 
-.nav-link.avis-menu-link,
-.nav-link.avis-menu-link:hover,
-.nav-link.avis-menu-link.active {
-    background: transparent;
-    color: var(--plum);
-    text-decoration: none;
-}
 
 
 
