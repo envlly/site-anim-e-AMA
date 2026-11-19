@@ -181,6 +181,8 @@ const animes = [
 
 const grid = document.getElementById("animeGrid");
 
+const featuredGrid = document.getElementById("featuredGrid");
+
 const filmsGrid = document.getElementById("filmsGrid");
 
 const seriesGrid = document.getElementById("seriesGrid");
@@ -198,6 +200,8 @@ let currentPage = "accueil";
 let activeGenre = "all";
 let visibleSuggestions = [];
 let activeSuggestionIndex = -1;
+
+const featuredAnimeTitles = new Set(["Tokyo Revengers", "Chainsaw Man"]);
 
 
 // CRÉATION D'UNE CARTE ANIME
@@ -218,7 +222,7 @@ function cardTemplate(anime) {
                     <img
                         src="${anime.image}"
                         alt="Affiche de ${anime.title}"
-                        loading="lazy"
+                        loading="${featuredAnimeTitles.has(anime.title) ? "eager" : "lazy"}"
                         onerror="this.src='https://placehold.co/400x600/F0E1E8/A8436D?text=AMA'"
                     >
 
@@ -295,10 +299,17 @@ function getFilteredAnimes() {
 
 function render() {
     const filteredAnimes = getFilteredAnimes();
+    const featuredAnimes = filteredAnimes.filter(anime =>
+        featuredAnimeTitles.has(anime.title)
+    );
+    const catalogAnimes = filteredAnimes.filter(anime =>
+        !featuredAnimeTitles.has(anime.title)
+    );
     const films = filteredAnimes.filter(anime => anime.type === "Film");
     const series = filteredAnimes.filter(anime => anime.type === "Série");
 
-    grid.innerHTML = filteredAnimes.map(cardTemplate).join("");
+    featuredGrid.innerHTML = featuredAnimes.map(cardTemplate).join("");
+    grid.innerHTML = catalogAnimes.map(cardTemplate).join("");
     filmsGrid.innerHTML = films.map(cardTemplate).join("");
     seriesGrid.innerHTML = series.map(cardTemplate).join("");
 
