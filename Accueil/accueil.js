@@ -306,7 +306,12 @@ function render() {
         !featuredAnimeTitles.has(anime.title)
     );
     const films = filteredAnimes.filter(anime => anime.type === "Film");
-    const series = filteredAnimes.filter(anime => anime.type === "Série");
+    const series = filteredAnimes
+        .filter(anime => anime.type === "Série")
+        .sort((a, b) =>
+            Number(featuredAnimeTitles.has(b.title)) -
+            Number(featuredAnimeTitles.has(a.title))
+        );
 
     featuredGrid.innerHTML = featuredAnimes.map(cardTemplate).join("");
     grid.innerHTML = catalogAnimes.map(cardTemplate).join("");
