@@ -11,13 +11,13 @@ const animes = [
     },
 
         {
-        title: " Tokyo Revengers",
+        title: "Tokyo Revengers",
         type: "Série",
-        genre: "Aventure","Action"
+        genre: "Action",
         language: "Anglais",
         year: 2021,
         rating: "8.18",
-        image: "{ "url": "https://api.jikan.moe/v4/anime?q=Tokyo%20Revengers&limit=1" }"
+        image: "https://media.kitsu.app/anime/poster_images/43321/original.jpg"
     },
 
     {
@@ -94,7 +94,7 @@ const animes = [
     {
         title: "The Future Diary",
         type: "Série",
-        genre: "Romance", "Action"
+        genre: "Romance",
         language: "Anglais",
         year: 2010,
         rating: "8,4",
