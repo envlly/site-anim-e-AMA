@@ -10,6 +10,16 @@ const animes = [
         image: "https://cdn.myanimelist.net/images/anime/6/73245.jpg"
     },
 
+        {
+        title: " Tokyo Revengers",
+        type: "Série",
+        genre: "Aventure","Action"
+        language: "Anglais",
+        year: 2021,
+        rating: "8.18",
+        image: "https://franime.fr/_next/image?url=https%3A%2F%2Fmedia.kitsu.app%2Fanime%2Fposter_images%2F43321%2Foriginal.jpg&w=640&q=75"
+    },
+
     {
         title: "Demon Slayer",
         type: "Série",
@@ -84,7 +94,7 @@ const animes = [
     {
         title: "The Future Diary",
         type: "Série",
-        genre: "Romance,Action",
+        genre: "Romance", "Action"
         language: "Anglais",
         year: 2010,
         rating: "8,4",
