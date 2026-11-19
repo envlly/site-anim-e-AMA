@@ -23,11 +23,21 @@ const animes = [
     {
         title: "Chainsaw Man: Reze-hen",
         type: "Film",
-        genre: "Action","Romance",
+        genre: "Action",
         language: "Anglais",
         year: 2025,
         rating: "8.3",
         image: "https://media.kitsu.app/anime/48323/poster_image/large-5548db6509abef22a2ee53233c97edc9.jpeg"
+    },
+
+    {
+        title: "Chainsaw Man",
+        type: "Série",
+        genre: "Action",
+        language: "Français",
+        year: 2022,
+        rating: "8,5",
+        image: "https://cdn.myanimelist.net/images/anime/1806/126216.jpg"
     },
    
 
