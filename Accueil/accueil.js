@@ -1,5 +1,5 @@
 const animes = [
-
+//vitrine d'anime//
     {
         title: "One Piece",
         type: "Série",
@@ -10,7 +10,7 @@ const animes = [
         image: "https://cdn.myanimelist.net/images/anime/6/73245.jpg"
     },
 
-        {
+    {
         title: "Tokyo Revengers",
         type: "Série",
         genre: "Action",
@@ -19,6 +19,17 @@ const animes = [
         rating: "8.18",
         image: "https://media.kitsu.app/anime/poster_images/43321/original.jpg"
     },
+
+    {
+        title: "Chainsaw Man: Reze-hen",
+        type: "Film",
+        genre: "Action","Romance",
+        language: "Anglais",
+        year: 2025,
+        rating: "8.3",
+        image: "https://media.kitsu.app/anime/48323/poster_image/large-5548db6509abef22a2ee53233c97edc9.jpeg"
+    },
+   
 
     {
         title: "Demon Slayer",
