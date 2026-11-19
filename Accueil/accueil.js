@@ -186,12 +186,18 @@ const filmsGrid = document.getElementById("filmsGrid");
 const seriesGrid = document.getElementById("seriesGrid");
 
 const searchInput = document.getElementById("searchInput");
+const searchSuggestions = document.getElementById("searchSuggestions");
 
 const catalogPanel = document.getElementById("catalogPanel");
+const genreFilter = document.getElementById("genreFilter");
+const languageFilter = document.getElementById("languageFilter");
+const typeFilter = document.getElementById("typeFilter");
 
 let currentPage = "accueil";
 
 let activeGenre = "all";
+let visibleSuggestions = [];
+let activeSuggestionIndex = -1;
 
 
 // CRÉATION D'UNE CARTE ANIME
@@ -257,32 +263,149 @@ function cardTemplate(anime) {
 
 }
 
-function render(list = animes) {
+function normalizeSearchText(value) {
+    return value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLocaleLowerCase("fr")
+        .trim();
+}
 
-    grid.innerHTML = list.map(cardTemplate).join("");
+function getFilteredAnimes() {
+    const query = normalizeSearchText(searchInput.value);
+    const selectedGenre = normalizeSearchText(genreFilter.value);
+    const selectedLanguage = normalizeSearchText(languageFilter.value);
+    const selectedType = normalizeSearchText(typeFilter.value);
 
-    filmsGrid.innerHTML = animes
-        .filter(a => a.type === "Film")
-        .map(cardTemplate)
-        .join("");
+    return animes.filter(anime => {
+        const searchableText = normalizeSearchText(
+            `${anime.title} ${anime.type} ${anime.genre} ${anime.language} ${anime.year} ${anime.rating}`
+        );
+        const matchesQuery = !query || searchableText.includes(query);
+        const matchesGenre = selectedGenre === "all" ||
+            normalizeSearchText(anime.genre).includes(selectedGenre);
+        const matchesLanguage = selectedLanguage === "all" ||
+            normalizeSearchText(anime.language) === selectedLanguage;
+        const matchesType = selectedType === "all" ||
+            normalizeSearchText(anime.type) === selectedType;
 
-    seriesGrid.innerHTML = animes
-        .filter(a => a.type === "Série")
-        .map(cardTemplate)
-        .join("");
+        return matchesQuery && matchesGenre && matchesLanguage && matchesType;
+    });
+}
 
+function render() {
+    const filteredAnimes = getFilteredAnimes();
+    const films = filteredAnimes.filter(anime => anime.type === "Film");
+    const series = filteredAnimes.filter(anime => anime.type === "Série");
 
-    document.getElementById("emptyState").hidden =
-        list.length !== 0;
+    grid.innerHTML = filteredAnimes.map(cardTemplate).join("");
+    filmsGrid.innerHTML = films.map(cardTemplate).join("");
+    seriesGrid.innerHTML = series.map(cardTemplate).join("");
 
+    document.getElementById("emptyState").hidden = filteredAnimes.length > 0;
+    document.getElementById("filmsEmptyState").hidden = films.length > 0;
+    document.getElementById("seriesEmptyState").hidden = series.length > 0;
 
     document.getElementById("resultCount").textContent =
-        `${list.length} animé${list.length > 1 ? "s" : ""} dans la sélection`;
+        `${filteredAnimes.length} animé${filteredAnimes.length > 1 ? "s" : ""} dans la sélection`;
+}
 
+function closeSuggestions() {
+    searchSuggestions.hidden = true;
+    searchInput.setAttribute("aria-expanded", "false");
+    searchInput.removeAttribute("aria-activedescendant");
+    activeSuggestionIndex = -1;
+}
+
+function chooseSuggestion(anime) {
+    const targetPage = anime.type === "Film" ? "films" : "series";
+    showPage(targetPage);
+
+    searchInput.value = anime.title;
+    genreFilter.value = "all";
+    languageFilter.value = "all";
+    typeFilter.value = anime.type;
+    render();
+}
+
+function updateSuggestions() {
+    const query = normalizeSearchText(searchInput.value);
+    searchSuggestions.replaceChildren();
+    visibleSuggestions = [];
+    activeSuggestionIndex = -1;
+
+    if (!query) {
+        closeSuggestions();
+        return;
+    }
+
+    visibleSuggestions = animes
+        .filter(anime => normalizeSearchText(anime.title).includes(query))
+        .sort((a, b) => {
+            const aStartsWithQuery = normalizeSearchText(a.title).startsWith(query);
+            const bStartsWithQuery = normalizeSearchText(b.title).startsWith(query);
+            return Number(bStartsWithQuery) - Number(aStartsWithQuery);
+        })
+        .slice(0, 6);
+
+    if (visibleSuggestions.length === 0) {
+        closeSuggestions();
+        return;
+    }
+
+    visibleSuggestions.forEach((anime, index) => {
+        const option = document.createElement("button");
+        option.type = "button";
+        option.id = `searchSuggestion-${index}`;
+        option.className = "search-suggestion";
+        option.setAttribute("role", "option");
+        option.setAttribute("aria-selected", "false");
+
+        const title = document.createElement("span");
+        title.className = "search-suggestion-title";
+        title.textContent = anime.title;
+
+        const meta = document.createElement("span");
+        meta.className = "search-suggestion-meta";
+        meta.textContent = `${anime.type} · ${anime.genre} · ${anime.year}`;
+
+        option.append(title, meta);
+        option.addEventListener("mousedown", event => event.preventDefault());
+        option.addEventListener("click", () => chooseSuggestion(anime));
+        searchSuggestions.append(option);
+    });
+
+    searchSuggestions.hidden = false;
+    searchInput.setAttribute("aria-expanded", "true");
+}
+
+function setActiveSuggestion(index) {
+    const options = searchSuggestions.querySelectorAll('[role="option"]');
+    if (options.length === 0) return;
+
+    activeSuggestionIndex = (index + options.length) % options.length;
+
+    options.forEach((option, optionIndex) => {
+        const isActive = optionIndex === activeSuggestionIndex;
+        option.setAttribute("aria-selected", String(isActive));
+        if (isActive) {
+            searchInput.setAttribute("aria-activedescendant", option.id);
+            option.scrollIntoView({ block: "nearest" });
+        }
+    });
 }
 
 
 function showPage(page) {
+
+    closeSuggestions();
+
+    if (page === "films" || page === "series") {
+        searchInput.value = "";
+        genreFilter.value = "all";
+        languageFilter.value = "all";
+        typeFilter.value = "all";
+    }
 
     currentPage = page;
 
@@ -323,6 +446,15 @@ function showPage(page) {
         behavior: "smooth"
     });
 
+    const hashes = {
+        accueil: "accueil",
+        films: "pages-films",
+        series: "pages-series",
+        avis: "pages-avis"
+    };
+
+    history.replaceState(null, "", `#${hashes[page] || "accueil"}`);
+
 }
 
 
@@ -332,6 +464,11 @@ document.querySelectorAll("[data-page-link]").forEach(button => {
 
     button.addEventListener("click", () => {
 
+        searchInput.value = "";
+        genreFilter.value = "all";
+        languageFilter.value = "all";
+        typeFilter.value = "all";
+        render();
         showPage(button.dataset.pageLink);
 
     });
@@ -360,5 +497,129 @@ document.getElementById("closeCatalog").addEventListener("click", () => {
 
 });
 
+searchInput.addEventListener("input", () => {
+    if (searchInput.value.trim() && currentPage === "avis") {
+        showPage("accueil");
+    }
+
+    render();
+    updateSuggestions();
+});
+
+searchInput.addEventListener("focus", updateSuggestions);
+
+searchInput.addEventListener("keydown", event => {
+    if (event.key === "ArrowDown" && !searchSuggestions.hidden) {
+        event.preventDefault();
+        setActiveSuggestion(activeSuggestionIndex + 1);
+    } else if (event.key === "ArrowUp" && !searchSuggestions.hidden) {
+        event.preventDefault();
+        setActiveSuggestion(
+            activeSuggestionIndex < 0
+                ? visibleSuggestions.length - 1
+                : activeSuggestionIndex - 1
+        );
+    } else if (event.key === "Enter" && !searchSuggestions.hidden) {
+        const selectedIndex = activeSuggestionIndex < 0 ? 0 : activeSuggestionIndex;
+        if (visibleSuggestions[selectedIndex]) {
+            event.preventDefault();
+            chooseSuggestion(visibleSuggestions[selectedIndex]);
+        }
+    } else if (event.key === "Escape") {
+        closeSuggestions();
+    }
+});
+
+document.addEventListener("click", event => {
+    if (!event.target.closest(".search-box")) {
+        closeSuggestions();
+    }
+});
+
+document.getElementById("applyFilters").addEventListener("click", () => {
+    render();
+});
+
+document.getElementById("resetFilters").addEventListener("click", () => {
+    searchInput.value = "";
+    genreFilter.value = "all";
+    languageFilter.value = "all";
+    typeFilter.value = "all";
+    render();
+});
+
+document.querySelectorAll(".genre-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+        genreFilter.value = chip.dataset.genre;
+        typeFilter.value = "all";
+        languageFilter.value = "all";
+        searchInput.value = "";
+
+        if (currentPage !== "accueil") {
+            showPage("accueil");
+        }
+
+        render();
+        document.getElementById("popular").scrollIntoView({ behavior: "smooth" });
+    });
+});
+
+const reviewForm = document.getElementById("reviewForm");
+const reviewList = document.getElementById("reviewList");
+const reviewCount = document.querySelector(".review-count");
+
+if (reviewForm) {
+    reviewForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById("reviewName").value.trim();
+        const rating = document.getElementById("reviewRating").value;
+        const comment = document.getElementById("reviewText").value.trim();
+
+        if (!name || !comment) return;
+
+        const article = document.createElement("article");
+        article.className = "review-card";
+
+        const top = document.createElement("div");
+        top.className = "review-top";
+
+        const author = document.createElement("strong");
+        author.textContent = name;
+
+        const score = document.createElement("span");
+        score.textContent = `★ ${rating}/10`;
+
+        const body = document.createElement("p");
+        body.textContent = comment;
+
+        top.append(author, score);
+        article.append(top, body);
+        reviewList.prepend(article);
+        reviewForm.reset();
+
+        const count = reviewList.querySelectorAll(".review-card").length;
+        reviewCount.textContent = `${count} avis`;
+    });
+}
+
+function openPageFromHash() {
+    const hash = window.location.hash;
+
+    if (hash === "#pages-films" || hash === "#page-films") {
+        showPage("films");
+    } else if (hash === "#pages-series" || hash === "#page-series") {
+        showPage("series");
+    } else if (hash === "#pages-avis" || hash === "#page-avis") {
+        showPage("avis");
+    } else {
+        showPage("accueil");
+    }
+}
+
+window.addEventListener("hashchange", openPageFromHash);
+
 render();
+
+openPageFromHash();
 

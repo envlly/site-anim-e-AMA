@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,37 +11,44 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="../navigation.css">
     <link rel="stylesheet" href="accueil.css">
     <script src="accueil.js" defer></script>
 </head>
 
-<body>
-
     
     <header class="site-header">
 
-        <a class="brand" href="#" data-page-link="accueil">
+        <a class="brand" href="accueil.html">
             AMA<span>.</span>
         </a>
 
         <nav class="main-nav">
 
-            <button class="nav-link active" data-page-link="accueil">
+            <button class="nav-link active" data-page-link="accueil"
+                    title="Accueil - accueil.html"
+                    data-tooltip="Accueil - accueil.html">
                 ACCUEIL
             </button>
 
-            <button class="nav-link" data-page-link="films">
+            <button class="nav-link" data-page-link="films"
+                    title="Films - accueil.html#page-films"
+                    data-tooltip="Films - accueil.html#page-films">
                 FILMS
             </button>
 
-            <button class="nav-link" data-page-link="series">
+            <button class="nav-link" data-page-link="series"
+                    title="Séries - accueil.html#page-series"
+                    data-tooltip="Séries - accueil.html#page-series">
                 SÉRIES
             </button>
 
-            <button class="nav-link" data-page-link="avis">
+            <button class="nav-link" data-page-link="avis"
+                    title="Avis - accueil.html#pages-avis"
+                    data-tooltip="Avis - accueil.html#pages-avis"
+                    type="button">
                 AVIS
             </button>
 
@@ -49,7 +57,7 @@
         
         <div class="header-tools">
 
-            <label class="search-box">
+            <div class="search-box">
                 <span>⌕</span>
 
                 <input
@@ -57,8 +65,20 @@
                     type="search"
                     placeholder="Rechercher un animé..."
                     autocomplete="off"
+                    role="combobox"
+                    aria-autocomplete="list"
+                    aria-controls="searchSuggestions"
+                    aria-expanded="false"
                 >
-            </label>
+
+                <div
+                    class="search-suggestions"
+                    id="searchSuggestions"
+                    role="listbox"
+                    aria-label="Suggestions d'animés"
+                    hidden
+                ></div>
+            </div>
 
             <button
                 class="plus-button"
@@ -308,6 +328,9 @@
             </div>
 
             <div class="anime-grid" id="filmsGrid"></div>
+            <p class="empty-state" id="filmsEmptyState" hidden>
+                Aucun film ne correspond à ta recherche ou aux filtres.
+            </p>
 
         </section>
 
@@ -328,6 +351,180 @@
             </div>
 
             <div class="anime-grid" id="seriesGrid"></div>
+            <p class="empty-state" id="seriesEmptyState" hidden>
+                Aucune série ne correspond à ta recherche ou aux filtres.
+            </p>
+
+        </section>
+
+
+        
+        <section class="page-section" id="page-avis">
+
+            <div class="page-title">
+
+                <p class="eyebrow">
+                    LA COMMUNAUTÉ AMA
+                </p>
+
+                <h2>Les avis <span>✦</span></h2>
+
+                <p>
+                    Lis les impressions des autres fans
+                    et partage la tienne.
+                </p>
+
+            </div>
+
+
+            <div class="review-layout">
+
+                <article class="review-feature">
+
+                    <a href="https://www.youtube.com/embed/6vMuWuWlW4I?autoplay=1"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       title="Lire la bande-annonce de Demon Slayer">
+                        <img
+                            src="https://cdn.myanimelist.net/images/anime/1171/109222.jpg"
+                            alt="Affiche de Demon Slayer"
+                        >
+                    </a>
+
+                    <div class="review-feature-info">
+
+                        <span class="pill">
+                            ANIME À L'AFFICHE
+                        </span>
+
+                        <h3>Demon Slayer</h3>
+
+                        <p>
+                            Série · Action, Fantastique · 2019
+                        </p>
+
+                        <div class="big-rating">
+                            ★ 9,2 <small>/ 10</small>
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <div class="reviews-column">
+
+                    <div class="reviews-heading">
+
+                        <div>
+                            <p class="eyebrow">
+                                CE QU'EN PENSE LA COMMUNAUTÉ
+                            </p>
+
+                            <h3>Avis des utilisateurs</h3>
+                        </div>
+
+                        <span class="review-count">
+                            3 avis
+                        </span>
+
+                    </div>
+
+
+                    <form class="review-form" id="reviewForm">
+
+                        <label for="reviewName">
+                            Ton pseudo
+                        </label>
+
+                        <input
+                            id="reviewName"
+                            name="reviewName"
+                            maxlength="24"
+                            placeholder="Ex. AnimeFan"
+                            required
+                        >
+
+
+                        <label for="reviewRating">
+                            Ta note sur 10
+                        </label>
+
+                        <select id="reviewRating" name="reviewRating">
+                            <option value="10">10 / 10</option>
+                            <option value="9" selected>9 / 10</option>
+                            <option value="8">8 / 10</option>
+                            <option value="7">7 / 10</option>
+                            <option value="6">6 / 10</option>
+                            <option value="5">5 / 10</option>
+                            <option value="4">4 / 10</option>
+                            <option value="3">3 / 10</option>
+                            <option value="2">2 / 10</option>
+                            <option value="1">1 / 10</option>
+                        </select>
+
+
+                        <label for="reviewText">
+                            Ton commentaire
+                        </label>
+
+                        <textarea
+                            id="reviewText"
+                            name="reviewText"
+                            rows="3"
+                            maxlength="400"
+                            placeholder="Qu'as-tu pensé de cet animé ?"
+                            required
+                        ></textarea>
+
+
+                        <button class="button button-primary" type="submit">
+                            Publier mon avis ↗
+                        </button>
+
+                    </form>
+
+
+                    <div class="review-list" id="reviewList">
+
+                        <article class="review-card">
+                            <div class="review-top">
+                                <strong>MangaFan</strong>
+                                <span>★ 10/10</span>
+                            </div>
+                            <p>
+                                Une animation magnifique et une
+                                histoire très touchante. J'ai adoré !
+                            </p>
+                        </article>
+
+                        <article class="review-card">
+                            <div class="review-top">
+                                <strong>Yuki_07</strong>
+                                <span>★ 9/10</span>
+                            </div>
+                            <p>
+                                Les personnages sont attachants
+                                et les combats impressionnants.
+                            </p>
+                        </article>
+
+                        <article class="review-card">
+                            <div class="review-top">
+                                <strong>OtakuLuna</strong>
+                                <span>★ 8/10</span>
+                            </div>
+                            <p>
+                                Une très belle série,
+                                avec beaucoup d'émotion.
+                            </p>
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </section>
 

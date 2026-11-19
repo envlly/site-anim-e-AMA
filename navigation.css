@@ -1,0 +1,231 @@
+:root {
+    --cream: #FFF7F0;
+    --pink: #A8436D;
+    --purple: #7C3AED;
+    --plum: #3F2935;
+    --ink: #35252E;
+    --muted: #8E727E;
+    --line: #EBD9DF;
+    --white: #FFFFFF;
+    --shadow: 0 18px 50px rgba(88, 44, 65, .11);
+}
+
+.site-header {
+    min-height: 86px;
+    padding: 15px clamp(20px, 5vw, 76px);
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    justify-content: space-between;
+    background: rgba(255, 247, 240, .94);
+    border-bottom: 0;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(14px);
+}
+
+.brand {
+    color: var(--pink);
+    font-family: "Nunito", "Segoe UI", sans-serif;
+    font-weight: 900;
+    letter-spacing: -4px;
+    font-size: 43px;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.brand span {
+    color: var(--purple);
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.nav-link {
+    position: relative;
+    border: 0;
+    background: transparent;
+    color: var(--plum);
+    font-weight: 900;
+    letter-spacing: .06em;
+    font-size: 12px;
+    padding: 13px 15px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: #F0E1E8;
+    color: var(--pink);
+}
+
+.nav-link[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 50%;
+    bottom: -46px;
+    z-index: 30;
+    transform: translateX(-50%) translateY(-4px);
+    width: max-content;
+    max-width: 260px;
+    padding: 8px 11px;
+    border-radius: 8px;
+    background: var(--plum);
+    color: var(--white);
+    box-shadow: 0 8px 24px rgba(63, 41, 53, .18);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.3;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .15s ease, transform .15s ease;
+}
+
+.nav-link[data-tooltip]:hover::after,
+.nav-link[data-tooltip]:focus-visible::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.header-tools {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-box {
+    position: relative;
+    width: min(290px, 26vw);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    padding: 11px 16px;
+}
+
+.search-suggestions {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 6px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--white);
+    box-shadow: var(--shadow);
+}
+
+.search-suggestions[hidden] {
+    display: none;
+}
+
+.search-suggestion {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    padding: 9px 11px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--plum);
+    text-align: left;
+    cursor: pointer;
+}
+
+.search-suggestion:hover,
+.search-suggestion[aria-selected="true"] {
+    background: #F0E1E8;
+}
+
+.search-suggestion-title {
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.search-suggestion-meta {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.search-box input {
+    min-width: 0;
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--ink);
+    font-size: 12px;
+}
+
+.plus-button {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--pink);
+    color: var(--white);
+    font-size: 24px;
+    font-weight: 400;
+}
+
+@media (max-width: 1000px) {
+    .site-header {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .main-nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .header-tools {
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 650px) {
+    .site-header {
+        padding: 14px 17px;
+    }
+
+    .brand {
+        font-size: 36px;
+    }
+
+    .main-nav {
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+
+    .nav-link {
+        padding: 10px 12px;
+        font-size: 10px;
+    }
+
+    .header-tools {
+        width: 100%;
+    }
+
+    .search-box {
+        width: 100%;
+        flex: 1;
+    }
+}

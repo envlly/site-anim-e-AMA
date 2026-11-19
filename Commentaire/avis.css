@@ -1,0 +1,10 @@
+.nav-link {
+    text-decoration: none;
+}
+
+.nav-link.active,
+.nav-link.active:hover,
+.nav-link.active:focus {
+    background: #F0E1E8;
+    color: #A8436D;
+}

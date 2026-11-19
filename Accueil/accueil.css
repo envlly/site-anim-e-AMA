@@ -50,138 +50,6 @@ button {
 
 
 
-.site-header {
-    min-height: 86px;
-    padding: 15px clamp(20px, 5vw, 76px);
-
-    display: flex;
-    align-items: center;
-    gap: 35px;
-    justify-content: space-between;
-
-    background: rgba(255,247,240,.94);
-    border-bottom: 1px solid var(--line);
-
-    position: sticky;
-    top: 0;
-    z-index: 20;
-
-    backdrop-filter: blur(14px);
-}
-
-
-
-
-.brand {
-    color: var(--pink);
-    font-weight: 900;
-    letter-spacing: -4px;
-    font-size: 43px;
-    line-height: 1;
-    text-decoration: none;
-}
-
-.brand span {
-    color: var(--purple);
-}
-
-
-
-
-.main-nav {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-}
-
-.nav-link {
-    border: 0;
-    background: transparent;
-    color: var(--plum);
-
-    font-weight: 900;
-    letter-spacing: .06em;
-    font-size: 12px;
-
-    padding: 13px 15px;
-    border-radius: 30px;
-
-    transition: .2s;
-}
-
-.nav-link:hover,
-.nav-link.active {
-    background: #F0E1E8;
-    color: var(--pink);
-}
-
-
-
-
-.header-tools {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.search-box {
-    width: min(290px, 26vw);
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: 30px;
-
-    padding: 0 15px;
-    height: 46px;
-
-    color: var(--pink);
-}
-
-.search-box span {
-    font-size: 27px;
-    line-height: 1;
-}
-
-.search-box input {
-    border: 0;
-    outline: 0;
-    min-width: 0;
-    width: 100%;
-
-    color: var(--plum);
-    background: transparent;
-    font-size: 13px;
-}
-
-.search-box input::placeholder {
-    color: #B69DA8;
-}
-
-.plus-button {
-    height: 46px;
-    width: 46px;
-
-    border: 0;
-    border-radius: 50%;
-
-    color: white;
-    background: var(--purple);
-
-    font-size: 30px;
-    line-height: 1;
-
-    box-shadow: 0 7px 18px #7c3aed44;
-
-    transition: transform .2s;
-}
-
-.plus-button:hover {
-    transform: rotate(90deg);
-}
 
 
 
@@ -886,7 +754,7 @@ select,
 
 
 .site-footer {
-    border-top: 1px solid var(--line);
+    border-top: 0;
 
     padding: 35px 24px;
 
@@ -943,22 +811,6 @@ select,
 /* ADAPTATION TABLETTES */
 
 @media (max-width: 1000px) {
-
-    .site-header {
-        flex-wrap: wrap;
-        gap: 12px;
-    }
-
-    .main-nav {
-        order: 3;
-        width: 100%;
-        justify-content: center;
-    }
-
-    .header-tools {
-        margin-left: auto;
-    }
-
     .anime-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -978,34 +830,6 @@ select,
 /* ADAPTATION TÉLÉPHONES */
 
 @media (max-width: 650px) {
-
-    .site-header {
-        padding: 14px 17px;
-    }
-
-    .brand {
-        font-size: 36px;
-    }
-
-    .main-nav {
-        overflow-x: auto;
-        justify-content: flex-start;
-    }
-
-    .nav-link {
-        padding: 10px 12px;
-        font-size: 10px;
-    }
-
-    .header-tools {
-        width: 100%;
-    }
-
-    .search-box {
-        width: 100%;
-        flex: 1;
-    }
-
     .intro {
         padding-top: 35px;
     }
