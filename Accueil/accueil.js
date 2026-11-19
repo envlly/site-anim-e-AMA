@@ -148,7 +148,7 @@ const animes = [
         title: "My Hero Academia",
         type: "Série",
         genre: "Action",
-        language: "Français",
+        language: "Français", 
         year: 2016,
         rating: "8,5",
         image: "https://cdn.myanimelist.net/images/anime/10/78745.jpg"
@@ -181,8 +181,6 @@ const animes = [
 
 const grid = document.getElementById("animeGrid");
 
-const featuredGrid = document.getElementById("featuredGrid");
-
 const filmsGrid = document.getElementById("filmsGrid");
 
 const seriesGrid = document.getElementById("seriesGrid");
@@ -200,8 +198,6 @@ let currentPage = "accueil";
 let activeGenre = "all";
 let visibleSuggestions = [];
 let activeSuggestionIndex = -1;
-
-const featuredAnimeTitles = new Set(["Tokyo Revengers", "Chainsaw Man"]);
 
 
 // CRÉATION D'UNE CARTE ANIME
@@ -222,7 +218,7 @@ function cardTemplate(anime) {
                     <img
                         src="${anime.image}"
                         alt="Affiche de ${anime.title}"
-                        loading="${featuredAnimeTitles.has(anime.title) ? "eager" : "lazy"}"
+                        loading="lazy"
                         onerror="this.src='https://placehold.co/400x600/F0E1E8/A8436D?text=AMA'"
                     >
 
@@ -299,22 +295,10 @@ function getFilteredAnimes() {
 
 function render() {
     const filteredAnimes = getFilteredAnimes();
-    const featuredAnimes = filteredAnimes.filter(anime =>
-        featuredAnimeTitles.has(anime.title)
-    );
-    const catalogAnimes = filteredAnimes.filter(anime =>
-        !featuredAnimeTitles.has(anime.title)
-    );
     const films = filteredAnimes.filter(anime => anime.type === "Film");
-    const series = filteredAnimes
-        .filter(anime => anime.type === "Série")
-        .sort((a, b) =>
-            Number(featuredAnimeTitles.has(b.title)) -
-            Number(featuredAnimeTitles.has(a.title))
-        );
+    const series = filteredAnimes.filter(anime => anime.type === "Série");
 
-    featuredGrid.innerHTML = featuredAnimes.map(cardTemplate).join("");
-    grid.innerHTML = catalogAnimes.map(cardTemplate).join("");
+    grid.innerHTML = filteredAnimes.map(cardTemplate).join("");
     filmsGrid.innerHTML = films.map(cardTemplate).join("");
     seriesGrid.innerHTML = series.map(cardTemplate).join("");
 
