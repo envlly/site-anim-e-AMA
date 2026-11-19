@@ -17,7 +17,7 @@ const animes = [
         language: "Anglais",
         year: 2021,
         rating: "8.18",
-        image: "https://franime.fr/_next/image?url=https%3A%2F%2Fmedia.kitsu.app%2Fanime%2Fposter_images%2F43321%2Foriginal.jpg&w=640&q=75"
+        image: "{ "url": "https://api.jikan.moe/v4/anime?q=Tokyo%20Revengers&limit=1" }"
     },
 
     {
