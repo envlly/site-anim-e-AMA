@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Participe aux commentaires de la communauté AMA.">
+    <title>AMA - Commentaires</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../navigation.css">
+    <link rel="stylesheet" href="../Accueil/accueil.css">
+    <link rel="stylesheet" href="avis.css">
+    <script src="commentaire.js" defer></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="brand" href="../Accueil/accueil.html">AMA<span>.</span></a>
+
+        <nav class="main-nav" aria-label="Navigation principale">
+            <a class="nav-link" href="../Accueil/accueil.html"
+               title="Accueil - ../Accueil/accueil.html"
+               data-tooltip="Accueil - ../Accueil/accueil.html">ACCUEIL</a>
+            <a class="nav-link" href="../Accueil/accueil.html#page-films"
+               title="Films - ../Accueil/accueil.html#page-films"
+               data-tooltip="Films - ../Accueil/accueil.html#page-films">FILMS</a>
+            <a class="nav-link" href="../Accueil/accueil.html#page-series"
+               title="Séries - ../Accueil/accueil.html#page-series"
+               data-tooltip="Séries - ../Accueil/accueil.html#page-series">SÉRIES</a>
+            <a class="nav-link" href="../Accueil/accueil.html#pages-avis"
+               title="Avis - accueil.html#pages-avis"
+               data-tooltip="Avis - accueil.html#pages-avis">AVIS</a>
+            <a class="nav-link active" href="commentaire.html" aria-current="page"
+               title="Commentaires - commentaire.html"
+               data-tooltip="Commentaires - commentaire.html">COMMENTAIRES</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-avis">
+            <div class="page-title">
+                <p class="eyebrow">DISCUSSION COMMUNAUTAIRE</p>
+                <h2>Commentaires <span>✦</span></h2>
+                <p>Partage ton impression ou pose une question aux autres fans.</p>
+            </div>
+
+            <form class="review-form" id="commentForm">
+                <label for="commentName">Ton pseudo</label>
+                <input id="commentName" maxlength="24" placeholder="Ex. AnimeFan" required>
+
+                <label for="commentText">Ton commentaire</label>
+                <textarea
+                    id="commentText"
+                    rows="4"
+                    maxlength="400"
+                    placeholder="Écris ton commentaire..."
+                    required
+                ></textarea>
+
+                <button class="button button-primary" type="submit">Publier</button>
+            </form>
+
+            <div class="review-list" id="commentList">
+                <article class="review-card">
+                    <div class="review-top"><strong>MangaFan</strong></div>
+                    <p>J'aimerais connaître vos animés préférés de cette année.</p>
+                </article>
+
+                <article class="review-card">
+                    <div class="review-top"><strong>Yuki</strong></div>
+                    <p>Les personnages sont vraiment attachants.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
